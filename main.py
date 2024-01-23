@@ -2,6 +2,22 @@
 from vosk import Model, KaldiRecognizer
 import os
 import pyaudio
+import pyttsx3
+
+#Síntese de Fala
+engine = pyttsx3.init()
+
+voices = engine.getProperty('voices') 
+rate = engine.getProperty('rate')
+
+voice_id = "brazil"
+engine.setProperty('voice', voice_id)
+engine.setProperty('rate', rate-80)
+
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
 
 model = Model('model')
 rec = KaldiRecognizer(model, 16000)
