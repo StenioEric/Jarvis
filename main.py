@@ -3,6 +3,10 @@ from vosk import Model, KaldiRecognizer
 import os
 import pyaudio
 import pyttsx3
+import json
+
+# Seu código que utiliza a biblioteca json continua aqui
+
 
 #Síntese de Fala
 engine = pyttsx3.init()
@@ -31,8 +35,12 @@ while True:
     if len(data) == 0:
         break
     if rec.AcceptWaveform(data):
-        print(rec.Result())
-    else:
-        print(rec.PartialResult())
+        result = rec.Result()
+        result = json.loads(result)
 
-print(rec.FinalResult())
+        if result is not None:
+            text = result['text']
+
+            print(text)
+            speak(text)
+
